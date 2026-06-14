@@ -1,0 +1,5 @@
+node_modules
+.env
+
+# Specific Secret File
+config/gee-key.json

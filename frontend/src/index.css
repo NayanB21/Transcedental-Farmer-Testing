@@ -1,0 +1,89 @@
+/* === GLOBAL RESET & TYPOGRAPHY === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Color Palette - Agricultural Premium Dark Theme */
+  --clr-bg:           #0a1a0f;
+  --clr-bg-secondary: #111f15;
+  --clr-surface:      #162418;
+  --clr-surface-2:    #1e3023;
+  --clr-surface-3:    #263a2c;
+
+  --clr-primary:      #22c55e;
+  --clr-primary-dark: #16a34a;
+  --clr-primary-glow: rgba(34, 197, 94, 0.18);
+  --clr-primary-dim:  rgba(34, 197, 94, 0.08);
+
+  --clr-accent:       #86efac;
+  --clr-accent-2:     #4ade80;
+  --clr-gold:         #f59e0b;
+  --clr-sky:          #38bdf8;
+  --clr-coral:        #f87171;
+
+  --clr-text:         #e8f5e9;
+  --clr-text-secondary: #a7c4a8;
+  --clr-text-muted:   #5d8a60;
+  --clr-border:       rgba(34, 197, 94, 0.15);
+  --clr-border-strong: rgba(34, 197, 94, 0.3);
+
+  /* Typography */
+  --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Radius */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  18px;
+  --radius-xl:  24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(34,197,94,0.06);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,197,94,0.1);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(34,197,94,0.12);
+  --shadow-glow: 0 0 20px rgba(34,197,94,0.25);
+
+  /* Transitions */
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-base);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 10% 20%, rgba(34,197,94,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(34,197,94,0.04) 0%, transparent 50%);
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--clr-bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--clr-surface-3); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-primary-dark); }

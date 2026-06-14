@@ -1,0 +1,25 @@
+ # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp          #These are files used by an alternative package manager
+.pnp.js        # called "Yarn" (a competitor to npm).
+
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store  #apple/mac default file for some work
+            #.env all secrets
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+                #debug scripts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
