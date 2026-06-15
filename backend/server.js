@@ -26,7 +26,13 @@ const { initializeEE }  = require("./services/earthEngineService");
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://transcedental-farmers.netlify.app"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Health-check — visit /health in browser to verify server + DB status
