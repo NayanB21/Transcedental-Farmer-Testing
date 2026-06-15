@@ -47,7 +47,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://transcedental-farmer-testing.vercel.app/"   
+    "https://transcedental-farmer-testing.vercel.app"
   ],
   credentials: true
 }));
@@ -111,7 +111,7 @@ mongoose
 
   app.listen(
 
-    process.env.PORT,
+    process.env.PORT || 5000,
 
     () => {
 
