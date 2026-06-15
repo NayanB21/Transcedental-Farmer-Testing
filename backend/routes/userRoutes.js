@@ -8,118 +8,58 @@ const jwt =
 require("jsonwebtoken");
 
 router.post("/signup", async(req,res)=>{
-
+  console.log("[SIGNUP] Request received:", req.body);
   try{
+    const { name, phone, password } = req.body;
 
-    const {
-      name,
-      phone,
-      password
-    } = req.body;
-
-    const existing =
-    await User.findOne({phone});
-
-    if(existing){
-
-      return res.status(400)
-      .json({
-        message:
-        "User already exists"
-      });
-
+    if (!name || !phone || !password) {
+      console.log("[SIGNUP] Missing fields");
+      return res.status(400).json({ message: "All fields required" });
     }
 
-    const hashed =
-    await bcrypt.hash(
-      password,
-      10
-    );
+    const existing = await User.findOne({phone});
+    if(existing){
+      console.log("[SIGNUP] User already exists:", phone);
+      return res.status(400).json({ message: "User already exists" });
+    }
 
-    const user =
-    await User.create({
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, phone, password: hashed });
+    console.log("[SIGNUP] User created successfully:", user._id);
+    res.status(201).json(user);
 
-      name,
-      phone,
-      password:hashed
-
-    });
-
-    res.status(201)
-    .json(user);
-
+  } catch(err){
+    console.error("[SIGNUP] ERROR:", err.message);
+    res.status(500).json({ message: err.message });
   }
-  catch(err){
-
-    res.status(500)
-    .json({
-      message:err.message
-    });
-
-  }
-
 });
 
 
 router.post("/login", async (req, res) => {
-
+  console.log("[LOGIN] Request received:", req.body?.phone);
   try {
-
     const { phone, password } = req.body;
 
-    const user =
-      await User.findOne({ phone });
-
+    const user = await User.findOne({ phone });
     if (!user) {
-
-      return res.status(400).json({
-        message: "User not found"
-      });
-
+      console.log("[LOGIN] User not found:", phone);
+      return res.status(400).json({ message: "User not found" });
     }
 
-    const match =
-      await bcrypt.compare(
-        password,
-        user.password
-      );
-
+    const match = await bcrypt.compare(password, user.password);
     if (!match) {
-
-      return res.status(400).json({
-        message: "Wrong Password"
-      });
-
+      console.log("[LOGIN] Wrong password for:", phone);
+      return res.status(400).json({ message: "Wrong Password" });
     }
 
-    const token =
-      jwt.sign(
-      {
-        id:user._id
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn:"7d"
-      }
-      );
-      res.json({
-      token,
-      user:{
-        _id:user._id,
-        name:user.name,
-        phone:user.phone
-      }
-      });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+    console.log("[LOGIN] Login successful:", user._id);
+    res.json({ token, user: { _id: user._id, name: user.name, phone: user.phone } });
 
+  } catch (err) {
+    console.error("[LOGIN] ERROR:", err.message);
+    res.status(500).json({ message: err.message });
   }
-  catch (err) {
-
-    res.status(500).json({
-      message: err.message
-    });
-
-  }
-
 });
 
 module.exports = router;

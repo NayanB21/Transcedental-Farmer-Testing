@@ -44,13 +44,7 @@ const {
 const app = express();
 
 //the main/only 2 Middlewares 
-app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://transcedental-farmer-testing.vercel.app"
-  ],
-  credentials: true
-}));
+app.use(cors()); // temporarily open — allows all origins while debugging
 
 
 app.use(express.json());
