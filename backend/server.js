@@ -50,9 +50,6 @@ app.use(cors()); // temporarily open — allows all origins while debugging
 app.use(express.json());
 
 // ── Health-check endpoint ─────────────────────────────────────────────────────
-// Visit  https://YOUR-RAILWAY-URL/health  in a browser to verify the server is
-// running and MongoDB is connected.  Delete this after debugging if you want.
-const mongoose = require("mongoose");
 app.get("/health", (req, res) => {
   const dbState = ["disconnected","connected","connecting","disconnecting"];
   res.json({
