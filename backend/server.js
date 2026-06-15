@@ -103,35 +103,21 @@ app.use(
 
 
 
-mongoose
-.connect(
-  process.env.MONGO_URI
-)
-.then(async () => {
-
-  console.log(
-    "MongoDB Connected"
-  );
-
-  await initializeEE();
-
-  app.listen(
-
-    process.env.PORT || 5000,
-
-    () => {
-
-      console.log(
-        "Server Running"
-      );
-
-    }
-
-  );
-
-})
-.catch(err => {
-
-  console.error(err);
-
+// ── Start server FIRST so Railway always gets a response on the port ──────────
+// app.listen must NOT be inside mongoose.then() — if DB fails, server must
+// still respond, otherwise Railway shows "Application failed to respond".
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server Running on port ${PORT}`);
 });
+
+// ── Connect to MongoDB and Earth Engine in the background ────────────────────
+mongoose.connect(process.env.MONGO_URI)
+  .then(async () => {
+    console.log("MongoDB Connected");
+    await initializeEE();
+    console.log("Earth Engine Initialized");
+  })
+  .catch(err => {
+    console.error("MongoDB connection error:", err.message);
+  });
