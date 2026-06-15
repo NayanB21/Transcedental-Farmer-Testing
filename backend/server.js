@@ -29,9 +29,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Explicitly handle OPTIONS preflight for all routes (fixes 405 on cross-origin POST)
-app.options("*", cors());
-
 // Health-check — visit /health in browser to verify server + DB status
 app.get("/health", (req, res) => {
   const states = ["disconnected", "connected", "connecting", "disconnecting"];
