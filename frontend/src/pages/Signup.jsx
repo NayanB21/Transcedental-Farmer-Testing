@@ -19,16 +19,19 @@ export default function Signup() {
         body: JSON.stringify(form),
       });
       const text = await res.text();
-      const data = text ? JSON.parse(text) : {};
+      let data = {};
+      try { data = JSON.parse(text); } catch { /* not JSON */ }
+
       if (res.ok) {
         setSuccess(true);
         setForm({ name: "", phone: "", password: "" });
         setTimeout(() => setSuccess(false), 4000);
       } else {
-        alert(data.message || "Signup failed.");
+        // Show full details so we can debug
+        alert(`Error ${res.status}: ${data.message || text || "No response body"}`);
       }
-    } catch {
-      alert("Network error. Please try again.");
+    } catch (err) {
+      alert(`Network error: ${err.message}`);
     } finally {
       setLoading(false);
     }
