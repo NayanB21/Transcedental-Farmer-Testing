@@ -1,3 +1,15 @@
+const fs = require('fs');
+const path = require('path');
+
+if (process.env.GEE_KEY_JSON) {
+  const dir = path.join(__dirname, 'config');
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  fs.writeFileSync(path.join(dir, 'gee-key.json'), process.env.GEE_KEY_JSON);
+}
+
+
 require("dotenv").config();
 
 const express = require("express");
