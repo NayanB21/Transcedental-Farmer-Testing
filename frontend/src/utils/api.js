@@ -1,8 +1,6 @@
 // src/utils/api.js
-// Central API base URL — controlled by environment variable.
-// Locally: uses http://localhost:5000 (from .env.local)
-// Production: set REACT_APP_API_URL in Vercel/Render dashboard to your deployed backend URL
-
-const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
+// Central API base URL.
+// Uses REACT_APP_API_URL env var if set, otherwise falls back to Railway production URL.
+const API = process.env.REACT_APP_API_URL || "https://transcedental-farmer-testing-production.up.railway.app";
 
 export default API;
