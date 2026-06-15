@@ -3,7 +3,7 @@ require("express");
 
 const Chat =
 require(
- "../models/Chat"
+ "../models/chat"
 );
 
 const {
